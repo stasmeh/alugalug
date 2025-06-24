@@ -9,7 +9,7 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # Максимальное время выполнения
+    timeout-minutes: 30
 
     steps:
     - name: Checkout code
@@ -41,11 +41,8 @@ jobs:
         xvfb-run -a python -m pytest tests/ -v --junitxml=test-results/junit.xml
       
     - name: Upload test results
-      uses: actions/upload-artifact@v3
-      if: always()  # Загружать артефакты даже если тесты упали
+      uses: actions/upload-artifact@v4
+      if: always()
       with:
         name: test-results
         path: test-results
-    - name: Test with pytest
-      run: |
-        python -m pytest tests/ -v
